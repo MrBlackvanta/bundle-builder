@@ -1,10 +1,10 @@
-import Image from "next/image";
+import { PlanLogoIcon } from "@/components/icons";
+import Price from "@/components/price";
+import QuantityStepper from "@/components/quantity-stepper";
+import { useBuilder } from "@/state/builder-context";
 import type { LineItem } from "@/state/selectors";
 import { DEFAULT_VARIANT } from "@/state/selectors";
-import { useBuilder } from "@/state/builder-context";
-import QuantityStepper from "@/components/quantity-stepper";
-import Price from "@/components/price";
-import { PlanLogoIcon } from "@/components/icons";
+import Image from "next/image";
 
 export const reviewLineClass =
   "grid grid-cols-[2.5625rem_minmax(0,1fr)_4.5rem_auto] items-center gap-x-3 [&>:last-child]:ml-1";

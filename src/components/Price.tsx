@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { formatMoney } from "@/lib/money";
+import { cn } from "@/lib/utils";
 
 interface PriceProps {
   price: number;

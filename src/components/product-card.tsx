@@ -1,15 +1,15 @@
-import Image from "next/image";
+import Price from "@/components/price";
+import QuantityStepper from "@/components/quantity-stepper";
+import VariantSelector from "@/components/variant-selector";
 import type { Product } from "@/data/data.types";
+import { cn } from "@/lib/utils";
 import { useBuilder } from "@/state/builder-context";
 import {
   getActiveVariantId,
   getProductTotalQty,
   getQty,
 } from "@/state/selectors";
-import { cn } from "@/lib/utils";
-import QuantityStepper from "@/components/quantity-stepper";
-import VariantSelector from "@/components/variant-selector";
-import Price from "@/components/price";
+import Image from "next/image";
 
 function cardShell(selected: boolean) {
   return cn(
