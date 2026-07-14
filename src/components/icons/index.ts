@@ -1,0 +1,9 @@
+export { default as AddIcon } from "./AddIcon";
+export { default as CameraIcon } from "./CameraIcon";
+export { default as CarrotIcon } from "./CarrotIcon";
+export { default as DeliveryIcon } from "./DeliveryIcon";
+export { default as ExtrasIcon } from "./ExtrasIcon";
+export { default as MinusIcon } from "./MinusIcon";
+export { default as PlanIcon } from "./PlanIcon";
+export { default as PlanLogoIcon } from "./PlanLogoIcon";
+export { default as SensorsIcon } from "./SensorsIcon";

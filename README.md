@@ -73,14 +73,21 @@ Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
   `catalog.json` with `/public` image paths (rendered through `next/image`
   with explicit dimensions) instead of static asset imports.
 - **Money is integer cents**, formatted with `Intl.NumberFormat` at render time.
-- **Fidelity**: colors, type sizes, tracking, spacing, and icons for the mobile
-  frame + review panel come straight from the Figma node (74:19845); the
-  exported icon vectors are committed as React components in
-  [src/components/icons](src/components/icons). Product-card and desktop-frame
-  values are estimates marked `TODO(figma)` until those nodes are audited.
+- **Fidelity**: colors, type sizes, tracking, spacing, icons, and variant-chip
+  thumbnails come straight from the Figma nodes — 74:19845 (mobile), 68:9663
+  (two-column desktop, the canonical layout per the brief), and 70:14135 (wide
+  stacked layout, used as the structure for the in-between tier at the
+  desktop type scale). Exported icon vectors are committed as React components
+  in [src/components/icons](src/components/icons). The plan step's cards have
+  no Figma node, so their layout reuses the product-card chrome.
 - **Fonts**: the design uses Gilroy + TT Norms Pro (commercial). Poppins via
-  `next/font` stands in until the licensed files are added
-  (`--font-sans` / `--font-checkout` slots are already wired).
+  `next/font` stands in until licensed files are added (`--font-sans` /
+  `--font-checkout` slots are already wired). The public Gilroy gist only
+  contains usable Bold/Black weights — not the Regular/Medium/Semibold the
+  design needs.
+- **Variant chip highlight**: per the design, a chip gets the green treatment
+  when that variant has quantity in the system; the radio (active) state drives
+  which variant the stepper edits.
 - **Design inconsistency (flagged)**: the mock's card shows Wyze Cam Pan v3 at
   $39.98 → $34.98, but its review line reads $57.98 → $47.98 for qty 2 (implying
   a $28.99 → $23.99 unit). The two can't both be true. The **card** prices are
@@ -95,9 +102,7 @@ Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
 
 ## Not done / next
 
-- Pixel pass for the remaining Figma nodes (product cards, expanded step,
-  desktop frame, variant chips) — estimates are marked `TODO(figma)`.
-- Swap in the licensed Gilroy / TT Norms Pro font files.
+- Swap in licensed Gilroy / TT Norms Pro font files.
 - Lighthouse run + fixes to hold 100s across the board.
 - Optional bonus: serve `catalog.json` from a small API route instead of a
   local import.

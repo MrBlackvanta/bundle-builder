@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wyze-purple: #4e2fd2;
+  --color-purple-hover: #3f26ab;
+  --color-surface-blue: #edf4ff;
+  --color-obsidian: #0b0d10;
+  --color-charcoal: #1f1f1f;
+  --color-gray-700: #575757;
+  --color-gray-600: #6f7882;
+  --color-gray-500: #a8b2bd;
+  --color-gray-400: #ced6de;
+  --color-gray-300: #e6ebf0;
+  --color-gray-200: #f0f4f7;
+  --color-ink-muted: #484848;
+  --color-porcelain: #f1f1f2;
+  --color-jade: #0aa288;
+  --color-strike-red: #d8392b;
+  --color-link-blue: #0000ee;
+  --color-silver: #cccccc;
+
+  --text-hero: 1.9921875rem;
+  --text-hero--line-height: 1.1;
+  --text-hero--letter-spacing: -0.064px;
+  --text-kicker: 0.625rem;
+  --text-kicker--line-height: 1;
+  --text-kicker--letter-spacing: 1.6px;
+  --text-review-title: 1.375rem;
+  --text-review-title--line-height: 1;
+  --text-cta: 1.0625rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins);
+  --font-checkout: var(--font-poppins);
+}
+
+@layer base {
+  body {
+    @apply text-obsidian bg-white antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-wyze-purple rounded outline-2 outline-offset-2;
+  }
+}
+
+@utility v-kicker {
+  @apply text-kicker text-ink-muted font-medium uppercase;
+}
+
+@utility v-disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      grid-template-rows 300ms ease,
+      visibility 0s linear 300ms;
+  }
+}
+
+@utility v-disclosure-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      grid-template-rows 300ms ease,
+      visibility 0s;
+  }
+}
+
+@utility v-center-odd-last {
+  & > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc(50% - 0.46875rem);
+    justify-self: center;
+  }
+}
+
+@utility v-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "seal totals"
+    "savings savings"
+    "checkout checkout"
+    "toast toast"
+    "save save";
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+
+  @variant sm {
+    grid-template-areas:
+      "seal returns"
+      "totals totals"
+      "savings savings"
+      "checkout checkout"
+      "toast toast"
+      "save save";
+    column-gap: 1.25rem;
+    row-gap: 0.75rem;
+  }
+
+  @variant xl {
+    grid-template-areas:
+      "seal totals"
+      "savings savings"
+      "checkout checkout"
+      "toast toast"
+      "save save";
+    column-gap: 1rem;
+    row-gap: 0.25rem;
+  }
+}

@@ -1,27 +1,51 @@
-import { cx } from '../lib/cx';
-import { formatMoney } from '../lib/money';
-import s from './Price.module.css';
+import { cn } from "@/lib/utils";
+import { formatMoney } from "@/lib/money";
 
 interface PriceProps {
-  /** Current price in cents; 0 renders as "FREE". */
   price: number;
   compareAt?: number;
   perMonth?: boolean;
-  context: 'card' | 'review';
+  context: "card" | "review";
 }
 
-export function Price({ price, compareAt, perMonth, context }: PriceProps) {
-  const suffix = perMonth ? '/mo' : '';
+export default function Price({
+  price,
+  compareAt,
+  perMonth,
+  context,
+}: PriceProps) {
+  const suffix = perMonth ? "/mo" : "";
+  const review = context === "review";
   return (
-    <span className={cx(s.price, context === 'card' ? s.card : s.review)}>
+    <span
+      className={cn(
+        "flex flex-col items-end whitespace-nowrap",
+        review
+          ? "tracking-[0.06px] sm:tracking-[0.07px]"
+          : "gap-0.75 text-base leading-none tracking-[0.6px]",
+      )}
+    >
       {compareAt != null && (
-        <s className={s.compare}>
+        <s
+          className={cn(
+            "font-medium",
+            review
+              ? "text-xs leading-4 text-gray-600 sm:text-sm"
+              : "text-strike-red font-normal",
+          )}
+        >
           {formatMoney(compareAt)}
           {suffix}
         </s>
       )}
-      <span className={s.current}>
-        {price === 0 ? 'FREE' : `${formatMoney(price)}${suffix}`}
+      <span
+        className={cn(
+          review
+            ? "text-wyze-purple text-xs leading-4 font-semibold sm:text-sm"
+            : "font-normal text-gray-700",
+        )}
+      >
+        {price === 0 ? "FREE" : `${formatMoney(price)}${suffix}`}
       </span>
     </span>
   );

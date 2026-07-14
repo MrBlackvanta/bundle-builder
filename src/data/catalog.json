@@ -42,9 +42,21 @@
       "price": 2798,
       "compareAtPrice": 3598,
       "variants": [
-        { "id": "white", "label": "White", "swatch": "#f4f5f7" },
-        { "id": "grey", "label": "Grey", "swatch": "#8d93a1" },
-        { "id": "black", "label": "Black", "swatch": "#23262e" }
+        {
+          "id": "white",
+          "label": "White",
+          "swatch": "/images/swatches/swatch-wyze-cam-v4--white.webp"
+        },
+        {
+          "id": "grey",
+          "label": "Grey",
+          "swatch": "/images/swatches/swatch-wyze-cam-v4--grey.webp"
+        },
+        {
+          "id": "black",
+          "label": "Black",
+          "swatch": "/images/swatches/swatch-wyze-cam-v4--black.webp"
+        }
       ]
     },
     {
@@ -59,8 +71,16 @@
       "price": 3498,
       "compareAtPrice": 3998,
       "variants": [
-        { "id": "white", "label": "White", "swatch": "#f4f5f7" },
-        { "id": "black", "label": "Black", "swatch": "#23262e" }
+        {
+          "id": "white",
+          "label": "White",
+          "swatch": "/images/swatches/swatch-wyze-cam-pan-v3--white.webp"
+        },
+        {
+          "id": "black",
+          "label": "Black",
+          "swatch": "/images/swatches/swatch-wyze-cam-pan-v3--black.webp"
+        }
       ]
     },
     {
@@ -75,8 +95,16 @@
       "price": 6998,
       "compareAtPrice": 8998,
       "variants": [
-        { "id": "white", "label": "White", "swatch": "#f4f5f7" },
-        { "id": "black", "label": "Black", "swatch": "#23262e" }
+        {
+          "id": "white",
+          "label": "White",
+          "swatch": "/images/swatches/swatch-wyze-cam-floodlight-v2--white.webp"
+        },
+        {
+          "id": "black",
+          "label": "Black",
+          "swatch": "/images/swatches/swatch-wyze-cam-floodlight-v2--black.webp"
+        }
       ]
     },
     {
@@ -99,8 +127,16 @@
       "learnMoreUrl": "#",
       "price": 8998,
       "variants": [
-        { "id": "white", "label": "White", "swatch": "#f4f5f7" },
-        { "id": "black", "label": "Black", "swatch": "#23262e" }
+        {
+          "id": "white",
+          "label": "White",
+          "swatch": "/images/swatches/swatch-wyze-battery-cam-pro--white.webp"
+        },
+        {
+          "id": "black",
+          "label": "Black",
+          "swatch": "/images/swatches/swatch-wyze-battery-cam-pro--black.webp"
+        }
       ]
     },
     {
