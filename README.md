@@ -7,19 +7,30 @@ take-home prototype rebuilt from a Figma design.
 
 ```bash
 pnpm install
-pnpm dev         # http://localhost:5173
+pnpm dev         # http://localhost:3000
 ```
 
 Other scripts:
 
 ```bash
 pnpm test        # unit tests (reducer, selectors, persistence)
-pnpm build       # typecheck + production build into dist/
-pnpm preview     # serve the production build
+pnpm lint        # ESLint (next/core-web-vitals + typescript)
+pnpm build       # production build
+pnpm start       # serve the production build
 ```
 
-Requires Node 18+ and pnpm (`corepack enable` will pick up the pinned version
-from `packageManager`).
+Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
+`packageManager`).
+
+## Stack
+
+- **Next.js 16** (App Router, React Compiler, Turbopack) + **React 19** +
+  **TypeScript** (strict)
+- **Tailwind CSS v4** — all theme/config in
+  [globals.css](src/app/globals.css) (`@theme` tokens from the Figma
+  variables, `v-`-prefixed `@utility` compositions), `cn()` helper
+  (clsx + tailwind-merge)
+- **Vitest** for the state-logic tests
 
 ## What's here
 
@@ -39,26 +50,41 @@ from `packageManager`).
   seal, financing chip, struck-through total, savings callout, checkout
   placeholder, and a working **Save my system for later**.
 - **Persistence**: saving serializes the whole builder state to `localStorage`
-  (`bundle-builder:v1`); on return it's restored exactly — with unknown
-  products/variants pruned so stale saves can't break a newer catalog.
-- **Responsive tiers**: two-column desktop (≥1200px, horizontal cards, sticky
+  (`bundle-builder:v1`). The app renders the seed on the server and first
+  client paint, then applies a saved configuration after mount — unknown
+  products/variants are pruned so stale saves can't break a newer catalog.
+- **Responsive tiers**: two-column desktop (`xl:`, horizontal cards, sticky
   panel), stacked tablet tier (vertical cards, review below with two internal
-  columns and the returns copy), and mobile (≤640px: visible page heading,
-  counts on collapsed steps, full-bleed panels).
+  columns), and mobile (visible page heading, counts on collapsed steps,
+  full-bleed panels).
 
 ## Decisions & tradeoffs
 
 - **State**: one small serializable object in React Context + `useReducer`
-  (`quantities[productId][variantId]`, `activeVariant`, `openStepId`). Everything
-  else — line items, counts, totals — is derived, which is what keeps the card
-  and panel steppers in sync for free. Quantity buttons dispatch *deltas* that
-  are applied against current state in the reducer, so batched events can never
+  (`quantities[productId][variantId]`, `activeVariant`, `openStepId`).
+  Everything else — line items, counts, totals — is derived, which keeps the
+  card and panel steppers in sync for free. Quantity buttons dispatch *deltas*
+  applied against current state in the reducer, so batched events can never
   drop an increment.
+- **Client boundary**: the whole page is one interactive tree sharing the
+  builder store, so `'use client'` sits on the single view component;
+  `layout.tsx`/`page.tsx` stay server components.
+- **JSON source**: the brief requires a JSON data source, so the catalog stays
+  `catalog.json` with `/public` image paths (rendered through `next/image`
+  with explicit dimensions) instead of static asset imports.
 - **Money is integer cents**, formatted with `Intl.NumberFormat` at render time.
+- **Fidelity**: colors, type sizes, tracking, spacing, and icons for the mobile
+  frame + review panel come straight from the Figma node (74:19845); the
+  exported icon vectors are committed as React components in
+  [src/components/icons](src/components/icons). Product-card and desktop-frame
+  values are estimates marked `TODO(figma)` until those nodes are audited.
+- **Fonts**: the design uses Gilroy + TT Norms Pro (commercial). Poppins via
+  `next/font` stands in until the licensed files are added
+  (`--font-sans` / `--font-checkout` slots are already wired).
 - **Design inconsistency (flagged)**: the mock's card shows Wyze Cam Pan v3 at
   $39.98 → $34.98, but its review line reads $57.98 → $47.98 for qty 2 (implying
-  a $28.99 → $23.99 unit). The two can't both be true. I kept the **card** prices
-  as data truth, so the seeded review line is $79.96 → $69.96 and the total is
+  a $28.99 → $23.99 unit). The two can't both be true. The **card** prices are
+  data truth, so the seeded review line is $79.96 → $69.96 and the total is
   $209.87 instead of the mock's $187.89. The savings ($50.92) matches the mock
   either way. Swap `price`/`compareAtPrice` in the catalog to flip this decision.
 - **Financing chip** ("as low as $X/mo") is computed as `total × asLowAsRate`
@@ -66,17 +92,12 @@ from `packageManager`).
   the mock's $19.19/$187.89 ratio.
 - **Plan step** is single-select (radio semantics); the plan review line has no
   stepper, and the required Sense Hub's steppers are disabled, per the design.
-- **Placeholder assets**: product images, the guarantee seal, and the plan
-  brandmark are hand-drawn SVGs standing in for Figma-exported assets; design
-  tokens in [src/styles/tokens.css](src/styles/tokens.css) are estimated from
-  PNG exports and marked `TODO(figma)`. Poppins stands in for the design's font
-  until confirmed.
 
 ## Not done / next
 
-- Pixel-perfect pass against the Figma file (exact hex values, type scale,
-  spacing, exported imagery) once design-token access is available.
-- Lighthouse run + fixes to hold 100s across the board (structure is already
-  built for it: semantic landmarks/roles, labeled controls, self-hosted subset
-  fonts, tiny SVG assets, meta description).
-- Optional bonus: serve `catalog.json` from a small API instead of a local import.
+- Pixel pass for the remaining Figma nodes (product cards, expanded step,
+  desktop frame, variant chips) — estimates are marked `TODO(figma)`.
+- Swap in the licensed Gilroy / TT Norms Pro font files.
+- Lighthouse run + fixes to hold 100s across the board.
+- Optional bonus: serve `catalog.json` from a small API route instead of a
+  local import.
