@@ -157,7 +157,7 @@ export default function ReviewPanel() {
             </div>
             <p
               aria-live="polite"
-              className="text-jade pt-2.5 text-center text-xs leading-none font-semibold tracking-[-0.056px] [grid-area:savings] sm:text-sm"
+              className="text-jade-deep pt-2.5 text-center text-xs leading-none font-semibold tracking-[-0.056px] [grid-area:savings] sm:text-sm"
             >
               Congrats! You&rsquo;re saving {formatMoney(totals.savings)} on
               your security bundle!

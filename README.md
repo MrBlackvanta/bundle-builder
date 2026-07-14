@@ -63,7 +63,7 @@ Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
 - **State**: one small serializable object in React Context + `useReducer`
   (`quantities[productId][variantId]`, `activeVariant`, `openStepId`).
   Everything else — line items, counts, totals — is derived, which keeps the
-  card and panel steppers in sync for free. Quantity buttons dispatch *deltas*
+  card and panel steppers in sync for free. Quantity buttons dispatch _deltas_
   applied against current state in the reducer, so batched events can never
   drop an increment.
 - **Client boundary**: the whole page is one interactive tree sharing the
@@ -88,6 +88,12 @@ Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
 - **Variant chip highlight**: per the design, a chip gets the green treatment
   when that variant has quantity in the system; the radio (active) state drives
   which variant the stepper edits.
+- **Contrast vs. Figma (deliberate deviation)**: three Figma colors fail WCAG AA
+  on the blue panel — group labels `#A8B2BD` (1.9:1), struck prices `#6F7882`
+  (4.1:1), and the jade savings line `#0AA288` (2.9:1). They're darkened to the
+  closest passing values (`#667079`, `#656E78`, and a text-only `jade-deep`
+  `#007A68`) to hold Lighthouse Accessibility at 100; chip borders keep the
+  original jade, which passes the 3:1 UI-component bar.
 - **Design inconsistency (flagged)**: the mock's card shows Wyze Cam Pan v3 at
   $39.98 → $34.98, but its review line reads $57.98 → $47.98 for qty 2 (implying
   a $28.99 → $23.99 unit). The two can't both be true. The **card** prices are
@@ -100,9 +106,20 @@ Requires Node 18+ and pnpm (`corepack enable` picks up the pinned version from
 - **Plan step** is single-select (radio semantics); the plan review line has no
   stepper, and the required Sense Hub's steppers are disabled, per the design.
 
+## Lighthouse
+
+Audited against the production build (`pnpm build && pnpm start`):
+Accessibility, Best Practices, and SEO score **100** on both mobile and desktop
+presets. The page ships with an eagerly-loaded, `fetchpriority=high` LCP image,
+inlined critical CSS (`experimental.inlineCss`), and zero layout shift.
+Performance measured 95 (desktop) / ~70–85 (mobile) on a loaded dev machine
+where run-to-run TBT varied almost 4×; the mobile number is dominated by
+React hydration under 4× CPU throttling and should be re-verified with
+PageSpeed Insights once deployed.
+
 ## Not done / next
 
 - Swap in licensed Gilroy / TT Norms Pro font files.
-- Lighthouse run + fixes to hold 100s across the board.
+- Re-run Lighthouse performance on the deployed URL (see above).
 - Optional bonus: serve `catalog.json` from a small API route instead of a
   local import.

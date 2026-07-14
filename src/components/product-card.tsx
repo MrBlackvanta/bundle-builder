@@ -18,7 +18,13 @@ function cardShell(selected: boolean) {
   );
 }
 
-function CardMedia({ product }: { product: Product }) {
+function CardMedia({
+  product,
+  priority,
+}: {
+  product: Product;
+  priority?: boolean;
+}) {
   return (
     <div className="relative flex h-38 w-full items-center justify-center xl:h-34.25 xl:w-25.25 xl:flex-none">
       {product.badge && (
@@ -32,6 +38,9 @@ function CardMedia({ product }: { product: Product }) {
         width={280}
         height={280}
         sizes="(min-width: 1280px) 101px, 152px"
+        priority={priority}
+        fetchPriority={priority ? "high" : undefined}
+        decoding={priority ? "sync" : "async"}
         className="h-full w-auto rounded-[0.3125rem] object-contain"
       />
     </div>
@@ -41,9 +50,9 @@ function CardMedia({ product }: { product: Product }) {
 function CardText({ product }: { product: Product }) {
   return (
     <div className="flex w-full flex-col gap-2 tracking-[0.6px]">
-      <h4 className="text-charcoal text-base leading-none font-semibold">
+      <h3 className="text-charcoal text-base leading-none font-semibold">
         {product.name}
-      </h4>
+      </h3>
       <p className="text-charcoal/75 text-xs leading-[1.3] font-medium">
         {product.description}{" "}
         <a
@@ -57,7 +66,13 @@ function CardText({ product }: { product: Product }) {
   );
 }
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  imagePriority,
+}: {
+  product: Product;
+  imagePriority?: boolean;
+}) {
   const { state, dispatch } = useBuilder();
   const variantId = getActiveVariantId(state, product);
   const qty = getQty(state, product.id, variantId);
@@ -65,7 +80,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className={cardShell(selected)}>
-      <CardMedia product={product} />
+      <CardMedia product={product} priority={imagePriority} />
       <div className="flex w-full min-w-0 flex-col gap-2.5 xl:w-auto xl:flex-1">
         <CardText product={product} />
         {product.variants && product.variants.length > 0 && (

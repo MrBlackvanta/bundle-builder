@@ -55,7 +55,7 @@ export default function StepSection({
             "border-charcoal flex flex-col gap-3.75 border-t-[0.5px] px-3.75 py-5",
         )}
       >
-        <h3>
+        <h2>
           <button
             type="button"
             aria-expanded={open}
@@ -82,7 +82,7 @@ export default function StepSection({
               />
             </span>
           </button>
-        </h3>
+        </h2>
         <div
           id={bodyId}
           className={cn("v-disclosure", open && "v-disclosure-open")}
@@ -95,7 +95,7 @@ export default function StepSection({
                 "xl:v-center-odd-last xl:grid-cols-2",
               )}
             >
-              {products.map((product) =>
+              {products.map((product, productIndex) =>
                 step.selectionMode === "single" ? (
                   <PlanCard
                     key={product.id}
@@ -103,7 +103,11 @@ export default function StepSection({
                     checked={getProductTotalQty(state, product) > 0}
                   />
                 ) : (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    imagePriority={index === 0 && productIndex === 0}
+                  />
                 ),
               )}
             </div>
