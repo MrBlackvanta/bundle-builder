@@ -1,0 +1,250 @@
+.panel {
+  --stepper-bg: var(--surface);
+  background: var(--brand-100);
+  border-radius: var(--radius-panel);
+  padding: 24px 24px 28px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-500);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-onbrand);
+}
+
+.group {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-onbrand);
+}
+
+.groupLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+  margin-bottom: 14px;
+}
+
+.mobileLabel {
+  display: none;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shippingRow {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 0;
+}
+
+.shipIcon {
+  width: 48px;
+  height: 48px;
+  background: var(--surface);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shipLabel {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'seal totals'
+    'savings savings'
+    'checkout checkout'
+    'toast toast'
+    'save save';
+  gap: 12px 20px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.sealArea {
+  grid-area: seal;
+}
+
+.returns {
+  display: none;
+  grid-area: returns;
+}
+
+.returnsHeadline {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.returnsBody {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-700);
+}
+
+.totals {
+  grid-area: totals;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.financeChip {
+  background: var(--brand-600);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--radius-chip);
+  white-space: nowrap;
+}
+
+.totalRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.totalCompare {
+  color: var(--ink-400);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.totalNow {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--brand-900);
+  letter-spacing: -0.01em;
+}
+
+.savings {
+  grid-area: savings;
+  color: var(--green-600);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.checkout {
+  grid-area: checkout;
+  width: 100%;
+  height: 52px;
+  background: var(--brand-600);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  transition: background-color 120ms ease;
+}
+
+.checkout:hover {
+  background: var(--brand-700);
+}
+
+.toast {
+  grid-area: toast;
+  min-height: 1em;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-700);
+}
+
+.saveLink {
+  grid-area: save;
+  justify-self: center;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Mobile: full-bleed lavender section, mobile plan label. */
+@media (max-width: 640px) {
+  .panel {
+    border-radius: 0;
+    margin-inline: calc(-1 * var(--page-pad, 16px));
+    padding: 24px var(--page-pad, 16px) 32px;
+  }
+
+  .desktopLabel {
+    display: none;
+  }
+
+  .mobileLabel {
+    display: inline;
+  }
+}
+
+/* Stacked/tablet tier: review sits below the builder, two internal columns. */
+@media (min-width: 641px) and (max-width: 1199px) {
+  .panel {
+    padding: 40px;
+  }
+
+  .eyebrow {
+    display: none;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px 56px;
+    align-items: start;
+  }
+
+  .summary {
+    margin-top: 0;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'seal returns'
+      'totals totals'
+      'savings savings'
+      'checkout checkout'
+      'toast toast'
+      'save save';
+  }
+
+  .returns {
+    display: block;
+  }
+
+  .totals {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}

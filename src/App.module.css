@@ -1,0 +1,51 @@
+.page {
+  --page-pad: clamp(16px, 4vw, 48px);
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 32px var(--page-pad) 80px;
+}
+
+/* The heading is visible on mobile only (per the design); kept in the
+   accessibility tree on larger screens for document structure. */
+.pageTitle {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin: 8px 0 28px;
+}
+
+@media (min-width: 641px) {
+  .pageTitle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+}
+
+.builderCol,
+.panelCol {
+  min-width: 0;
+}
+
+@media (min-width: 1200px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    align-items: start;
+  }
+
+  .panelCol {
+    position: sticky;
+    top: 24px;
+  }
+}

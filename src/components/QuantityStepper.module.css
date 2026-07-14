@@ -1,0 +1,47 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-chip);
+  background: var(--stepper-bg);
+  color: var(--ink-700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  transition: background-color 120ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--line);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+}
+
+.value {
+  min-width: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sm .btn {
+  width: 24px;
+  height: 24px;
+  font-size: 15px;
+}
+
+.sm .value {
+  font-size: 15px;
+  min-width: 16px;
+}
