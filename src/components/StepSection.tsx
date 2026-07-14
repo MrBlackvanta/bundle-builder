@@ -36,35 +36,37 @@ export function StepSection({ step, index }: { step: Step; index: number }) {
               <span className={cx(s.count, !open && s.countCollapsed)}>
                 {count} selected
               </span>
-              <Chevron up={open} />
+              <Chevron up={open} className={s.chevron} />
             </span>
           </button>
         </h3>
-        <div id={bodyId} hidden={!open}>
-          <div className={s.grid}>
-            {products.map((product) =>
-              step.selectionMode === 'single' ? (
-                <PlanCard
-                  key={product.id}
-                  product={product}
-                  checked={getProductTotalQty(state, product) > 0}
-                />
-              ) : (
-                <ProductCard key={product.id} product={product} />
-              ),
+        <div id={bodyId} className={cx(s.body, open && s.bodyOpen)}>
+          <div className={s.bodyInner}>
+            <div className={s.grid}>
+              {products.map((product) =>
+                step.selectionMode === 'single' ? (
+                  <PlanCard
+                    key={product.id}
+                    product={product}
+                    checked={getProductTotalQty(state, product) > 0}
+                  />
+                ) : (
+                  <ProductCard key={product.id} product={product} />
+                ),
+              )}
+            </div>
+            {step.nextLabel && nextStep && (
+              <div className={s.nextWrap}>
+                <button
+                  type="button"
+                  className={s.nextBtn}
+                  onClick={() => dispatch({ type: 'openStep', stepId: nextStep.id })}
+                >
+                  {step.nextLabel}
+                </button>
+              </div>
             )}
           </div>
-          {step.nextLabel && nextStep && (
-            <div className={s.nextWrap}>
-              <button
-                type="button"
-                className={s.nextBtn}
-                onClick={() => dispatch({ type: 'openStep', stepId: nextStep.id })}
-              >
-                {step.nextLabel}
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </section>

@@ -11,11 +11,48 @@
   padding: 12px 0 4px;
 }
 
+.panel {
+  border-radius: var(--radius-panel);
+  transition:
+    background-color 300ms ease,
+    padding 300ms ease,
+    margin-top 300ms ease;
+}
+
 .open .panel {
   background: var(--brand-100);
-  border-radius: var(--radius-panel);
   padding: 4px 24px 28px;
   margin-top: 8px;
+}
+
+/* Animated disclosure: grid rows 0fr -> 1fr transitions to the content's auto
+   height (and keeps adapting to it while open); visibility flips after the
+   close transition so collapsed content leaves the tab order and the
+   accessibility tree. */
+.body {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 300ms ease,
+    visibility 0s linear 300ms;
+}
+
+.bodyOpen {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 300ms ease,
+    visibility 0s;
+}
+
+.bodyInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.chevron {
+  transition: transform 300ms ease;
 }
 
 .heading {

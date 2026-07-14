@@ -60,7 +60,7 @@ export function StepIcon({ name, size }: { name: string; size?: number }) {
   return <Icon size={size} />;
 }
 
-export function Chevron({ up = false }: { up?: boolean }) {
+export function Chevron({ up = false, className }: { up?: boolean; className?: string }) {
   return (
     <svg
       viewBox="0 0 10 6"
@@ -68,7 +68,8 @@ export function Chevron({ up = false }: { up?: boolean }) {
       height="6"
       fill="currentColor"
       aria-hidden="true"
-      style={up ? { transform: 'rotate(180deg)' } : undefined}
+      className={className}
+      style={{ transform: up ? 'rotate(180deg)' : 'rotate(0deg)' }}
     >
       <path d="M0 0l5 6 5-6z" />
     </svg>

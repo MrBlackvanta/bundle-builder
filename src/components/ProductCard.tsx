@@ -17,7 +17,7 @@ export function ProductCard({ product }: { product: Product }) {
     <article className={cx(s.card, selected && s.selected)}>
       {product.badge && <span className={s.badge}>{product.badge}</span>}
       <div className={s.media}>
-        <img src={product.image} alt="" width="280" height="200" loading="lazy" />
+        <img src={product.image} alt="" width="280" height="280" loading="lazy" />
       </div>
       <div className={s.body}>
         <h4 className={s.title}>{product.name}</h4>
@@ -72,7 +72,7 @@ export function PlanCard({ product, checked }: { product: Product; checked: bool
         }
       />
       <div className={s.media}>
-        <img src={product.image} alt="" width="280" height="200" loading="lazy" />
+        <img src={product.image} alt="" width="280" height="280" loading="lazy" />
       </div>
       <div className={s.body}>
         <h4 className={s.title}>{product.name}</h4>
